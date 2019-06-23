@@ -9,7 +9,7 @@ let products = {
 	},
 	"crest": {
 		"name": "Crest",
-		"ingredients": "Aqua, Sorbitol, Hydrated Silica, PEG-6, Sodium Lauryl Sulfate, Tetrapotassium Pyrophosphate, Disodium Pyrophosphate, Tetrapotassium Pyrophosphate, Disodium Pyrophosphate, Tetrasodium Pyrophosphate, Aroma, Cellulose Gum, Xanthan Gum, Carbomer, Sodium Saccharin, Triclosan, Copernicia Cerifera (Carnauba) Wax, CI 77891, Limonene, CI 42090, Sodium Fluoride (0.321%)"
+		"ingredients": "Aqua, Sorbitol, Hydrated Silica, PEG-6, Sodium Lauryl Sulfate, Tetrapotassium Pyrophosphate, Disodium Pyrophosphate, Disodium Pyrophosphate, Tetrasodium Pyrophosphate, Aroma, Cellulose Gum, Xanthan Gum, Carbomer, Sodium Saccharin, Triclosan, Copernicia Cerifera (Carnauba) Wax, CI 77891, Limonene, CI 42090, Sodium Fluoride (0.321%)"
 	},
 	"sensodyne": {
 		"name": "Sensodyne",
@@ -84,19 +84,16 @@ function array_move(arr, old_index, new_index) {
 // Array, from, to
 // console.log(array_move([1, 2, 3], 2, 0)); 
 
-for (let idx = 0; idx < numOfProducts; ++idx) {
-	let id = arr[idx];
-	for (let i = 0; i < numOfDuplicates; ++i) {
-		let indexOfDuplicate = products[arr[idx]].ingredients.indexOf(results[i]);
-		let sortedArr = array_move(products[arr[idx]].ingredients, indexOfDuplicate, i)
-		console.log(sortedArr);
+for (let i = 0; i < numOfProducts; ++i) {
+	let id = arr[i];
+	for (let j = 0; j < numOfDuplicates; ++j) {
+		let indexOfDuplicate = products[arr[i]].ingredients.indexOf(results[j]);
+		let sortedArr = array_move(products[arr[i]].ingredients, indexOfDuplicate, j)
 		products[id].ingredients = sortedArr;
 	}
-	
-	console.log(products);
 }
 
-// 4. For each toothpaste, create a new row for each ingredient
+// 3. For each toothpaste, create a new row for each ingredient
 // 					Every entry has a <tr></tr>
 // 					First entry is a Table Header object. i.e. <tr><th></th></tr>
 // 					Subsequent entries are <tr><td></td></tr>
@@ -149,3 +146,13 @@ let createTableRow = () => {
 	
 createTableHeader();
 createTableRow();
+
+
+
+// For Styling Purposes
+
+for (let i = 0; i < numOfDuplicates; ++i) {
+	let matchesEl = document.querySelectorAll("tbody tr");
+	matchesEl[i].classList.add("match")
+}
+

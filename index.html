@@ -1,43 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+<div class="wrapper">
+<div class="container">
+<table id="result">
+	<thead></thead>
+	<tbody></tbody>
+</table>	
+</div>
+</div>
 
-	<title>Simple Allergy Comparison</title>
-	<link rel="stylesheet" type="text/css" href="app.css">
-	<script src="app.js"></script>
-</head>
-<body>
-	<div class="wrapper">
-		<div class="container">
-			<table id="result">
-				<thead></thead>
-				<tbody></tbody>
-			</table>	
+<footer>
+	<div class="container">
+		<div class="form">
+					<div class="input-row">
+			<label for="name">Product name</label>
+			<input placeholder="Product" id="name" type="text"/>		
 		</div>
+
+		<div class="input-row">
+			<label for="ingredients">Ingredients</label>
+			<textarea placeholder="Ingredient, Ingredient, Ingredient, ..., Ingredient" id="ingredients"></textarea>
+			<sup>Separate each ingredients by a comma</sup>
+		</div>
+
+		<button id="addProduct">Add for comparison</button>					
+		</div>
+
 	</div>
 
-	<footer>
-		<div class="container">
-			<div class="form">
-						<div class="input-row">
-				<label for="name">Product name</label>
-				<input id="name" type="text"/>		
-			</div>
-
-			<div class="input-row">
-				<label for="ingredients">Ingredients</label>
-				<textarea id="ingredients"></textarea>
-				<sup>Separate each ingredients by a comma</sup>
-			</div>
-
-			<button id="addProduct">Add</button>					
-			</div>
-
-		</div>
-
-	</footer>	
-		
-</body>
-</html>
-
+</footer>
