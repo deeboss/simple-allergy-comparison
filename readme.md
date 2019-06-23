@@ -1,7 +1,10 @@
 # Ingredients Comparer
 
+<div style="text-align:center; margin: auto;">
+
 ![Demo](demo.gif)
 
+</div>
 This is a super simple ingredients comparer to let you find the shared ingredients across multiple products.
 
 Built over a weekend on a whim after hearing about the needs of a friend with a recent allergic reaction to toothpaste.
