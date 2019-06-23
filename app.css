@@ -14,7 +14,7 @@ body {
 
   
   @media only screen and (min-width: 800px) {
-  overflow-x: hidden;   
+  // overflow-x: hidden;    
   }
 }
 
@@ -29,7 +29,7 @@ header {
   }
 }
 
-footer {
+nav {
   width: 100%;
   z-index: 5;
   background: white;
@@ -38,17 +38,38 @@ footer {
 
   
   @media only screen and (min-width: 800px) {
-      position: fixed;
-      bottom: 0;
+      box-shadow: 0px 15px 30px rgba(black, 0.02), 0px 20px 20px rgba(black, 0.06);
+        border-top: 0px solid #ccc;
+        border-right: 0px solid #ccc;
+    position: fixed;
+    height: 100%;
   }
 }
 
 .wrapper {
-
-  flex: 1 0 auto;
+    display: flex;
+  flex-direction: column-reverse;
+  
+      .inner {
+      width: 100%;
+    }
   
   @media only screen and (min-width: 800px) {
-      padding-bottom: 200px;
+  flex-direction: row;
+    
+    nav {
+    max-width: 260px;
+    width: 100%;
+      
+      hr {
+        border-color: rgba(gray, 0.12);
+      }
+    }
+    
+    .inner {
+      padding-left: 350px;
+      padding-right: 200px;
+    }
   }
 }
 
@@ -166,10 +187,19 @@ table {
 
 .form { 
   padding: 20px;
+
     @media only screen and (min-width: 800px) {
-      padding: 0;
-     display: flex;
-      align-items: baseline;
+      padding: 20px;
+        margin-bottom: 35px;
+     // display: flex;
+     // align-items: baseline;
+      
+      .title-row {
+        margin-bottom: 20px;
+        h3 {
+          font-weight: bold;
+        }
+      }
       
       .input-row {
           margin-right: 20px;
@@ -205,12 +235,16 @@ table {
     padding: 5px;
     $textAreaWidth: 350px;
     $textAreaHeight: 120px;
+          @media only screen and (min-width: 800px) {
+            $textAreaWidth: 100%;
+            $textAreaHeight: 180px;
+        }
     min-width: $textAreaWidth;
     max-width: $textAreaWidth;
     min-height: $textAreaHeight;
     max-height: $textAreaHeight;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc
   }
 
   sup {
@@ -248,8 +282,7 @@ button {
 
 body.expand {
   overflow-x: scroll;
-  .container {
-    padding-right: 400px;
+  .inner .container {
     padding-left: 100px;
         min-width: 1200px;
   }

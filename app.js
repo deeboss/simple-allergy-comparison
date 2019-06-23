@@ -282,6 +282,13 @@ init();
 	}
 };
 
+let addExistingProduct = () => {
+	// Create objects for starting products
+	let 
+	// Based on what the client clicks on, use that to iterate through the object
+	// Get it and pass it into addNewProduct();
+}
+	
 // Hide/remove columns
 let removeProduct = el => {
 	let tempProducts = {};
@@ -303,8 +310,6 @@ let removeProduct = el => {
 	numOfProducts = Object.keys(products).length;
 
 	init();
-	
-	
 
 	let tableHeader = document.getElementById("result").getElementsByTagName("thead")[0].querySelector("tr");
 

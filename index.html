@@ -1,5 +1,31 @@
 <div class="wrapper">
+	
+<nav>
 	<div class="container">
+		<div class="form">
+			<div class="title-row">
+			<h3>Add a new product</h3>
+			<p>Enter the name of the product as well as its ingredients below to compare it against the other products in the table.</p>
+		</div>
+			<div class="input-row">
+				<label for="newProductName">Product name</label>
+				<input placeholder="Product" id="newProductName" type="text" />
+			</div>
+
+			<div class="input-row">
+				<label for="newIngredient">Ingredients</label>
+				<textarea placeholder="Ingredient, Ingredient, Ingredient, ..." id="newIngredient"></textarea>
+				<sup>Separate each ingredients by a comma</sup>
+			</div>
+
+			<button id="addProduct">Add for comparison</button>
+		</div>
+						<hr>
+	</div>
+
+</nav>
+	<div class="inner">
+		<div class="container">
 		<header>
 			<h1>
 				Simple Ingredient Comparer
@@ -14,25 +40,5 @@
 			<tbody></tbody>
 		</table>
 	</div>
-</div>
-
-<footer>
-	<div class="container">
-		<div class="form">
-			<div class="input-row">
-				<label for="newProductName">Product name</label>
-				<input placeholder="Product" id="newProductName" type="text" />
-			</div>
-
-			<div class="input-row">
-				<label for="newIngredient">Ingredients</label>
-				<textarea placeholder="Ingredient, Ingredient, Ingredient, ..." id="newIngredient"></textarea>
-				<sup>Separate each ingredients by a comma</sup>
-			</div>
-
-			<button id="addProduct">Add for comparison</button>
-		</div>
-
 	</div>
-
-</footer>
+</div>
