@@ -211,7 +211,11 @@ let createTableRow = () => {
 	// Client side: show matches
 	for (let i = 0; i < numOfDuplicates; ++i) {
 		let matchesEl = document.querySelectorAll("tbody tr");
-		matchesEl[i].classList.add("match");
+	if (document.getElementById('result').rows[0].cells.length == 1) {
+
+	} else {
+		matchesEl[i].classList.add("match");		
+	}
 
 		if (i == numOfDuplicates - 1) {
 			matchesEl[i].style.borderBottom = "3px solid royalblue";
