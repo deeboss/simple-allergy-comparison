@@ -1,27 +1,36 @@
 <div class="wrapper">
-<div class="container">
-<table id="result">
-	<thead></thead>
-	<tbody></tbody>
-</table>	
-</div>
+	<div class="container">
+		<header>
+			<h1>
+				Simple Ingredient Comparer
+			</h1>
+			<p class="large">
+				Compare ingredients across different products and get an idea of what may be contributing to an allergic reaction.
+			</p>
+		</header>
+		<table id="result">
+			<thead>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
 </div>
 
 <footer>
 	<div class="container">
 		<div class="form">
-					<div class="input-row">
-			<label for="newProductName">Product name</label>
-			<input placeholder="Product" id="newProductName" type="text"/>		
-		</div>
+			<div class="input-row">
+				<label for="newProductName">Product name</label>
+				<input placeholder="Product" id="newProductName" type="text" />
+			</div>
 
-		<div class="input-row">
-			<label for="newIngredient">Ingredients</label>
-			<textarea placeholder="Ingredient, Ingredient, Ingredient, ..., Ingredient" id="newIngredient"></textarea>
-			<sup>Separate each ingredients by a comma</sup>
-		</div>
+			<div class="input-row">
+				<label for="newIngredient">Ingredients</label>
+				<textarea placeholder="Ingredient, Ingredient, Ingredient, ..." id="newIngredient"></textarea>
+				<sup>Separate each ingredients by a comma</sup>
+			</div>
 
-		<button id="addProduct">Add for comparison</button>					
+			<button id="addProduct">Add for comparison</button>
 		</div>
 
 	</div>
