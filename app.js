@@ -1,3 +1,26 @@
+// ************************
+// ************************
+// Utility Functions
+// ************************
+// ************************
+
+// Trim whitespace
+	ltrim = str => {
+		if (str == null) return str;
+		return str.replace(/^\s+/g, "");
+	};
+
+// Capitalize string for better formatting and consistency
+	String.prototype.capitalize = function() {
+		return this.replace(/(?:^|\s)\S/g, function(a) {
+			return a.toUpperCase();
+		});
+	};
+
+// ************************
+// ************************
+
+
 // 1. Log each toothpaste
 // - Name of toothpaste
 // - Ingredients
@@ -36,19 +59,8 @@ let arr = Object.keys(products);
 
 // Begin
 let findDuplicateIngredients = () => {
+	console.log(products);
 	let allIngredientsArr = [];
-	// Capitalize string for better formatting and consistency
-	String.prototype.capitalize = function() {
-		return this.replace(/(?:^|\s)\S/g, function(a) {
-			return a.toUpperCase();
-		});
-	};
-
-	// Trim whitespace
-	ltrim = str => {
-		if (str == null) return str;
-		return str.replace(/^\s+/g, "");
-	};
 
 	for (let idx = 0; idx < numOfProducts; ++idx) {
 		let id = arr[idx];
@@ -59,7 +71,13 @@ let findDuplicateIngredients = () => {
 		products[id].ingredients = tmpArr.sort();
 
 		for (let i = 0; i < products[id].ingredients.length; ++i) {
-			ingredientsArr.push(ltrim(products[id].ingredients[i].replace(/ *\([^)]*\) */g, "").capitalize()));
+			ingredientsArr.push(
+				ltrim(
+					products[id].ingredients[i]
+					.replace(/ *\([^)]*\) */g, "")
+					.capitalize()
+				)
+			);
 			allIngredientsArr.push(ltrim(products[id].ingredients[i].capitalize()));
 		}
 		products[id].ingredients = ingredientsArr.sort();
@@ -80,7 +98,7 @@ let findDuplicateIngredients = () => {
 
 	const duplicates = dict =>
 		Object.keys(dict).filter(a => dict[a] > duplicateThreshold);
-	
+
 	const approximateMatches = dict =>
 		Object.keys(dict).filter(a => dict[a] > approximateThreshold);
 
@@ -88,25 +106,29 @@ let findDuplicateIngredients = () => {
 	let results = duplicates(count(allIngredientsArr));
 	let approximateResults = approximateMatches(count(allIngredientsArr));
 	let indexOfExactResults = [];
-	
+
 	numOfDuplicates = results.length;
 	numOfApproximates = approximateResults.length;
+	console.log("______");
+		console.log("These ingredients are shared across all " + (duplicateThreshold + 1) + " products");
 	console.log(results);
+	
+	console.log("These ingredients are shared across at least " + (approximateThreshold + 1) + " products");
 	console.log(approximateResults);
 	console.log("______");
-	
+
 	for (let i = 0; i < results.length; ++i) {
 		indexOfExactResults.push(approximateResults.indexOf(results[i]));
 	}
-	
+
 	if (indexOfExactResults.length > 0) {
 		for (let j = 0; j < indexOfExactResults.length; ++j) {
 			if (indexOfExactResults[j] > -1) {
-       approximateResults.splice(indexOfExactResults[j], 1);
-    }
-		}					
+				approximateResults.splice(indexOfExactResults[j], 1);
+			}
+		}
 	}
-	
+
 	// 		Find them in each product, and re-order their respective ingredients array
 	// 		to make sure they're first.
 	let array_move = (arr, old_index, new_index) => {
@@ -119,39 +141,40 @@ let findDuplicateIngredients = () => {
 		arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 		return arr; // for testing
 	};
-	
-			
+
 	for (let i = 0; i < numOfProducts; ++i) {
 		let id = arr[i];
-		
+
 		for (let j = 0; j < numOfDuplicates; ++j) {
 			let indexOfDuplicate = products[arr[i]].ingredients.indexOf(results[j]);
-			let sortedArr = array_move(
-				products[arr[i]].ingredients,
-				indexOfDuplicate,
-				j
-			);
-			
-			for (let k = 0; k < numOfApproximates; ++k) {
-				let indexOfApproximate = products[arr[i]].ingredients.indexOf(approximateResults[k]);
-				let moveToPos = k+1;
-				
-				if (indexOfApproximate > -1) {
-					console.log("Found a approximate: " + indexOfApproximate);
-					console.log(products[arr[i]].ingredients)
-					console.log("Move value to index: " + moveToPos);
-					let sortedArr = array_move(
-						products[arr[i]].ingredients,
-						indexOfApproximate,
-						moveToPos
-					);
-				}
-			}
-		
+			let sortedArr = array_move(products[arr[i]].ingredients, indexOfDuplicate, j);
+			console.log("++++++++");
+			console.log("Array after exact matches")
 			console.log(sortedArr);
 			console.log("++++++++");
 			products[id].ingredients = sortedArr;
 		}
+		
+		// let moveToPos = 1;
+// 		for (let k = 0; k < numOfApproximates; ++k) {
+// 			let indexOfApproximate = products[arr[i]].ingredients.indexOf(approximateResults[k]);
+// 			console.log("K is now " + k, " and moveToPos is " + moveToPos)
+
+// 			if (indexOfApproximate > -1) {
+// 				console.log("Found a match at index: " + indexOfApproximate);
+// 				console.log(products[arr[i]].ingredients);
+// 				console.log("Will move it to index: " + moveToPos);
+// 				let sortedArr = array_move(products[arr[i]].ingredients, indexOfApproximate, moveToPos);
+// 				console.log("~~~~~~~~");
+// 				console.log("Results after sorting:")
+// 				console.log(sortedArr);
+// 				console.log("~~~~~~~~");
+// 				products[id].ingredients = sortedArr;
+// 				moveToPos += 1;
+// 			} else {
+// 			}
+// 		}
+		
 	}
 };
 
@@ -211,20 +234,21 @@ let createTableRow = () => {
 	// Client side: show matches
 	for (let i = 0; i < numOfDuplicates; ++i) {
 		let matchesEl = document.querySelectorAll("tbody tr");
-	if (document.getElementById('result').rows[0].cells.length == 1) {
-
-	} else {
-		matchesEl[i].classList.add("match");		
-				if (i == numOfDuplicates - 1) {
-			matchesEl[i].style.borderBottom = "3px solid royalblue";
+		if (document.getElementById("result").rows[0].cells.length == 1) {
+		} else {
+			matchesEl[i].classList.add("match");
+			if (i == numOfDuplicates - 1) {
+				matchesEl[i].style.borderBottom = "3px solid royalblue";
+			}
 		}
 	}
-	}
-	
+
 	setTimeout(function() {
-			table.classList.add('show');		
-	}, 100)
+		table.classList.add("show");
+	}, 100);
 };
+
+
 
 let clearTable = () => {
 	let tableHeader = document
@@ -239,7 +263,7 @@ let clearTable = () => {
 	}
 
 	while (tableBody.firstChild) {
-		tableBody.classList.remove('show');
+		tableBody.classList.remove("show");
 		tableBody.removeChild(tableBody.firstChild);
 	}
 };
@@ -251,86 +275,65 @@ let addNewProduct = res => {
 	arr.push(key);
 	products[key] = res;
 
-	clearTable();
-	findDuplicateIngredients();
-	createTableHeader();
-	createTableRow();
+init();
 
 	if (numOfProducts > 5) {
 		document.body.classList.add("expand");
 	}
 };
 
-
-
 // Hide/remove columns
-let removeProduct = (el) => {
-	let tempProducts = {}
-	let iterator = 1;	
-	
-	for (let idx = 0; idx < numOfProducts; ++idx) {
-			let id =	arr[idx]
-		
-			if (products[id].name !== el) {
+let removeProduct = el => {
+	let tempProducts = {};
+	let iterator = 1;
 
-				let key = "product" + iterator;
-				tempProducts[key] = (products[id]);
-				console.log(tempProducts);
-				
-				++iterator;
-			}
+	for (let idx = 0; idx < numOfProducts; ++idx) {
+		let id = arr[idx];
+
+		if (products[id].name !== el) {
+			let key = "product" + iterator;
+			tempProducts[key] = products[id];
+			//console.log(tempProducts);
+
+			++iterator;
+		}
 	}
-	
+
 	products = tempProducts;
 	numOfProducts = Object.keys(products).length;
+
+	init();
 	
-	clearTable();
-	findDuplicateIngredients();
-	createTableHeader();
-	createTableRow();
 	
-let tableHeader = document
-		.getElementById("result")
-		.getElementsByTagName("thead")[0]
-		.querySelector("tr");
-	
-	let tableBody = document.getElementById("result")
-		.getElementsByTagName("tbody")[0]
-		.querySelector("tr");
-	
+
+	let tableHeader = document.getElementById("result").getElementsByTagName("thead")[0].querySelector("tr");
+
+	let tableBody = document.getElementById("result").getElementsByTagName("tbody")[0].querySelector("tr");
+
 	if (tableHeader.childNodes.length == 0) {
-			let header = document.createElement("th");
-			header.innerText = "Empty";
-			tableHeader.append(header);
-		
-			let data = document.createElement("td");
-			data.innerHTML = "<div class='empty-state-message'><h2><span>👀</span>No products to compare!</h2><p class='large'>Add a few products down below to compare ingredients</p></div>";
-			tableBody.append(data);
-		
+		let header = document.createElement("th");
+		header.innerText = "Empty";
+		tableHeader.append(header);
+
+		let data = document.createElement("td");
+		data.innerHTML =
+			"<div class='empty-state-message'><h2><span>🤔</span>Nothing to compare!</h2><p class='large'>Add a few products down below to compare ingredients</p></div>";
+		tableBody.append(data);
+
 		tableHeader.setAttribute("disabled", "true");
 	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-// Client side: hide column
-document.getElementById("result").getElementsByTagName("thead")[0].onclick = e => {
-	e = e || window.event;
-	let th = e.target || e.srcElement; //assumes there are no other elements in the th
-	
- let selectedHeader = (th.textContent);
-	removeProduct(selectedHeader);
 };
 
+// Client side: hide column
+document
+	.getElementById("result")
+	.getElementsByTagName("thead")[0].onclick = e => {
+	e = e || window.event;
+	let th = e.target || e.srcElement; //assumes there are no other elements in the th
+
+	let selectedHeader = th.textContent;
+	removeProduct(selectedHeader);
+};
 
 // Client side: Add new product for comparison
 // Client enters product name, ingredients, and presses submit
@@ -358,9 +361,14 @@ document.getElementById("addProduct").onclick = () => {
 	}
 };
 
-
 // Init
 // Client side: create table
+let init = () => {
+	clearTable();
 findDuplicateIngredients();
 createTableHeader();
-createTableRow();
+createTableRow();	
+}
+
+
+init();
