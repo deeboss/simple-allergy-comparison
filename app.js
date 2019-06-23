@@ -59,7 +59,7 @@ let findDuplicateIngredients = () => {
 		products[id].ingredients = tmpArr.sort();
 
 		for (let i = 0; i < products[id].ingredients.length; ++i) {
-			ingredientsArr.push(ltrim(products[id].ingredients[i].capitalize()));
+			ingredientsArr.push(ltrim(products[id].ingredients[i].replace(/ *\([^)]*\) */g, "").capitalize()));
 			allIngredientsArr.push(ltrim(products[id].ingredients[i].capitalize()));
 		}
 		products[id].ingredients = ingredientsArr.sort();
@@ -76,14 +76,37 @@ let findDuplicateIngredients = () => {
 
 	// Set the number of duplicates across the products
 	let duplicateThreshold = numOfProducts - 1;
+	let approximateThreshold = numOfProducts - 2;
 
 	const duplicates = dict =>
 		Object.keys(dict).filter(a => dict[a] > duplicateThreshold);
+	
+	const approximateMatches = dict =>
+		Object.keys(dict).filter(a => dict[a] > approximateThreshold);
 
 	let listOfDuplicates = count(allIngredientsArr);
 	let results = duplicates(count(allIngredientsArr));
+	let approximateResults = approximateMatches(count(allIngredientsArr));
+	let indexOfExactResults = [];
+	
 	numOfDuplicates = results.length;
-
+	numOfApproximates = approximateResults.length;
+	console.log(results);
+	console.log(approximateResults);
+	console.log("______");
+	
+	for (let i = 0; i < results.length; ++i) {
+		indexOfExactResults.push(approximateResults.indexOf(results[i]));
+	}
+	
+	if (indexOfExactResults.length > 0) {
+		for (let j = 0; j < indexOfExactResults.length; ++j) {
+			if (indexOfExactResults[j] > -1) {
+       approximateResults.splice(indexOfExactResults[j], 1);
+    }
+		}					
+	}
+	
 	// 		Find them in each product, and re-order their respective ingredients array
 	// 		to make sure they're first.
 	let array_move = (arr, old_index, new_index) => {
@@ -96,9 +119,11 @@ let findDuplicateIngredients = () => {
 		arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 		return arr; // for testing
 	};
-
+	
+			
 	for (let i = 0; i < numOfProducts; ++i) {
 		let id = arr[i];
+		
 		for (let j = 0; j < numOfDuplicates; ++j) {
 			let indexOfDuplicate = products[arr[i]].ingredients.indexOf(results[j]);
 			let sortedArr = array_move(
@@ -106,6 +131,25 @@ let findDuplicateIngredients = () => {
 				indexOfDuplicate,
 				j
 			);
+			
+			for (let k = 0; k < numOfApproximates; ++k) {
+				let indexOfApproximate = products[arr[i]].ingredients.indexOf(approximateResults[k]);
+				let moveToPos = k+1;
+				
+				if (indexOfApproximate > -1) {
+					console.log("Found a approximate: " + indexOfApproximate);
+					console.log(products[arr[i]].ingredients)
+					console.log("Move value to index: " + moveToPos);
+					let sortedArr = array_move(
+						products[arr[i]].ingredients,
+						indexOfApproximate,
+						moveToPos
+					);
+				}
+			}
+		
+			console.log(sortedArr);
+			console.log("++++++++");
 			products[id].ingredients = sortedArr;
 		}
 	}
