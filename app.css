@@ -1,5 +1,6 @@
-@charset "UTF-8";
-html, body {
+html,
+body {
+  height: 100%;
   margin: 0;
   box-sizing: border-box;
 }
@@ -8,10 +9,11 @@ body {
   font-family: "Monaco", "Lucida Console", monospace;
   background: #effcff;
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
-
 footer {
-  bottom: 0;
   width: 100%;
   z-index: 5;
   background: white;
@@ -21,6 +23,7 @@ footer {
 
 .wrapper {
   padding-bottom: 20px;
+  flex: 1 0 auto;
 }
 
 .container {
@@ -37,66 +40,80 @@ table {
   border-radius: 6px;
   padding: 15px;
   padding-left: 20px;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.02), 0px 20px 20px rgba(0, 0, 0, 0.08);
-}
-table thead tr, table tbody tr {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-}
-table thead tr {
-  border-bottom: 1px solid #ccc;
-}
-table thead th {
-  text-align: center;
-  font-weight: bold;
-  padding: 12px 0;
-}
-table tbody tr {
-  position: relative;
-}
-table tbody tr:nth-of-type(even) {
-  background: rgba(0, 0, 255, 0.03);
-}
-table tbody tr:hover {
-  background: rgba(0, 0, 255, 0.06);
-}
-table tbody tr.match {
-  font-weight: bold;
-}
-table tbody tr.match:before {
-  background: #1f92c9;
-  padding: 1px 8px;
-  color: white;
-  content: "⭑ match";
-  font-size: smaller;
-  position: absolute;
-  left: -80px;
-  top: 7px;
-  text-transform: uppercase;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-table tbody tr.match:after {
-  content: "";
-  position: absolute;
-  left: -20px;
-  top: 7px;
-  width: 0;
-  height: 0;
-  border-top: 9px solid transparent;
-  border-left: 12px solid #1f92c9;
-  border-bottom: 9px solid transparent;
-}
-table th, table td {
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  padding-right: 15px;
-}
-table td {
-  padding: 10px 5px;
+  box-shadow: 0px 15px 30px rgba(black, 0.02), 0px 20px 20px rgba(black, 0.08);
+
+  thead tr,
+  tbody tr {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      text-align: center;
+      font-weight: bold;
+      padding: 12px 0;
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-of-type(even) {
+        background: rgba(blue, 0.03);
+      }
+      &:hover {
+        background: rgba(blue, 0.06);
+      }
+      position: relative;
+
+      &.match {
+        font-weight: bold;
+        // background: rgba(blue, 0.2);
+        &:before {
+          background: #1f92c9;
+          padding: 1px 8px;
+          color: white;
+          content: "⭑ match";
+          font-size: smaller;
+          position: absolute;
+          left: -80px;
+          top: 7px;
+          text-transform: uppercase;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          left: -20px;
+          top: 7px;
+          width: 0;
+          height: 0;
+          border-top: 9px solid transparent;
+          border-left: 12px solid #1f92c9;
+          border-bottom: 9px solid transparent;
+        }
+      }
+    }
+  }
+
+  th,
+  td {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding-right: 15px;
+  }
+
+  td {
+    padding: 10px 5px;
+  }
 }
 
 .form {
@@ -106,33 +123,42 @@ table td {
 
 .input-row {
   margin-right: 20px;
-}
-.input-row label, .input-row input, .input-row textarea {
-  display: block;
-}
-.input-row label {
-  font-weight: bold;
-  font-size: 10px;
-  margin-bottom: 4px;
-  color: gray;
-}
-.input-row input {
-  border: 1px solid #ccc;
-  padding: 5px;
-  min-width: 180px;
-}
-.input-row textarea {
-  padding: 5px;
-  min-width: 350px;
-  max-width: 350px;
-  min-height: 120px;
-  max-height: 120px;
-  width: 100%;
-  border: 1px solid #ccc;
-}
-.input-row sup {
-  color: rgba(128, 128, 128, 0.8);
-  font-style: italic;
+  label,
+  input,
+  textarea {
+    display: block;
+  }
+
+  label {
+    // text-transform: uppercase;
+    font-weight: bold;
+    font-size: 10px;
+    margin-bottom: 4px;
+    color: gray;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    min-width: 180px;
+  }
+
+  textarea {
+    padding: 5px;
+    $textAreaWidth: 350px;
+    $textAreaHeight: 120px;
+    min-width: $textAreaWidth;
+    max-width: $textAreaWidth;
+    min-height: $textAreaHeight;
+    max-height: $textAreaHeight;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  sup {
+    color: rgba(gray, 0.8);
+    font-style: italic;
+  }
 }
 
 button {
@@ -145,13 +171,16 @@ button {
   color: white;
   border-radius: 3px;
   padding: 8px 30px;
-}
-button:hover {
-  background: rgba(31, 201, 154, 0.8);
-}
-button:active {
-  background: #1bae86;
-}
-button:focus {
-  outline: none;
+
+  &:hover {
+    background: rgba(#1fc99a, 0.8);
+  }
+
+  &:active {
+    background: darken(#1fc99a, 6%);
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
