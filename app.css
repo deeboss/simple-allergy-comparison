@@ -35,6 +35,7 @@ nav {
   background: white;
   padding: 15px 0 20px;
   border-top: 1px solid #ccc;
+  padding: 20px;
 
   
   @media only screen and (min-width: 800px) {
@@ -43,6 +44,11 @@ nav {
         border-right: 0px solid #ccc;
     position: fixed;
     height: 100%;
+    
+    button {
+      margin-left: auto;
+      display: inline-block;
+    }
   }
 }
 
@@ -67,8 +73,8 @@ nav {
     }
     
     .inner {
-      padding-left: 350px;
-      padding-right: 200px;
+      padding-left: 360px;
+      padding-right: 20px;
     }
   }
 }
@@ -186,10 +192,7 @@ table {
 }
 
 .form { 
-  padding: 20px;
-
     @media only screen and (min-width: 800px) {
-      padding: 20px;
         margin-bottom: 35px;
      // display: flex;
      // align-items: baseline;
@@ -215,6 +218,7 @@ table {
   input,
   textarea {
     display: block;
+    width: 100%;
   }
 
   label {
@@ -254,11 +258,47 @@ table {
 }
 }
 
+.options {
+  &[disabled="true"] {
+      cursor: wait;
+    
+      * {
+        pointer-events: none;
+        color: rgba(gray, 0.5)!important;
+        pointer-events: none!important;
+      }
+    }
+  
+  .option-group {
+    
+  }
+  
+  .quick-add-product {
+    padding-left: 0;
+    li {
+      list-style-type: none;
+      margin-bottom: 6px; 
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      cursor: pointer;
+      color: royalblue;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+      &:before {
+        content: "+";
+        display: inline-block;
+        margin-right: 5px;
+      }
+    }
+  }
+}
 
 
 button {
-  position: relative;
-  top: 24px;
   appearance: none;
   -webkit-appearance: none;
   border: 0;
@@ -266,6 +306,10 @@ button {
   color: white;
   border-radius: 3px;
   padding: 8px 30px;
+  
+  @media only screen and (min-width: 800px) {
+    position: static;
+  }
 
   &:hover {
     background: rgba(#1fc99a, 0.8);

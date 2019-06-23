@@ -42,7 +42,7 @@ let products = {
 			"Potassium nitrate, sodium fluoride, Water, hydrated silica, sorbitol, glycerin, pentasodium triphosphate, PEG-8, flavor, titanium dioxide, sodium methyl cocoyl taurate, cocamidopropyl betaine, xanthan gum, sodium hydroxide, sodium saccharin, sucralose"
 	}
 };
-
+const defaultProducts = JSON.parse(JSON.stringify(products));
 // 2. Comparison mode (all)
 // - Find all exact ingredient matches across all toothpaste products
 
@@ -59,7 +59,7 @@ let arr = Object.keys(products);
 
 // Begin
 let findDuplicateIngredients = () => {
-	console.log(products);
+	// console.log(products);
 	let allIngredientsArr = [];
 
 	for (let idx = 0; idx < numOfProducts; ++idx) {
@@ -109,13 +109,13 @@ let findDuplicateIngredients = () => {
 
 	numOfDuplicates = results.length;
 	numOfApproximates = approximateResults.length;
-	console.log("______");
-		console.log("These ingredients are shared across all " + (duplicateThreshold + 1) + " products");
-	console.log(results);
+	// console.log("______");
+	// 	console.log("These ingredients are shared across all " + (duplicateThreshold + 1) + " products");
+	// console.log(results);
 	
-	console.log("These ingredients are shared across at least " + (approximateThreshold + 1) + " products");
-	console.log(approximateResults);
-	console.log("______");
+	// console.log("These ingredients are shared across at least " + (approximateThreshold + 1) + " products");
+	// console.log(approximateResults);
+	// console.log("______");
 
 	for (let i = 0; i < results.length; ++i) {
 		indexOfExactResults.push(approximateResults.indexOf(results[i]));
@@ -148,10 +148,10 @@ let findDuplicateIngredients = () => {
 		for (let j = 0; j < numOfDuplicates; ++j) {
 			let indexOfDuplicate = products[arr[i]].ingredients.indexOf(results[j]);
 			let sortedArr = array_move(products[arr[i]].ingredients, indexOfDuplicate, j);
-			console.log("++++++++");
-			console.log("Array after exact matches")
-			console.log(sortedArr);
-			console.log("++++++++");
+			// console.log("++++++++");
+			// console.log("Array after exact matches")
+			// console.log(sortedArr);
+			// console.log("++++++++");
 			products[id].ingredients = sortedArr;
 		}
 		
@@ -284,8 +284,11 @@ init();
 
 let addExistingProduct = () => {
 	// Create objects for starting products
-	let 
+	let el = document.getElementById("quickAddList").getElementsByTagName("ul")[0].querySelector("li");
+	
+	
 	// Based on what the client clicks on, use that to iterate through the object
+	
 	// Get it and pass it into addNewProduct();
 }
 	
@@ -329,10 +332,71 @@ let removeProduct = el => {
 	}
 };
 
+// Client side: populate "quick add"
+let populateDefaultProductList = () => {
+	let arr = Object.keys(defaultProducts);
+	let el = document.getElementById("quickAddList");
+	
+	while (el.firstChild) {
+		el.removeChild(el.firstChild);
+	}
+	
+	for (let i = 0; i < Object.keys(defaultProducts).length; ++i) {
+		let data = document.createElement("li");
+		data.innerHTML = defaultProducts[arr[i]].name;
+		data.setAttribute("id", i);
+		el.append(data);
+	}	
+}
+
+// Client side: add selected "quick add" item to table for comparison
+document.getElementById("quickAddList").onclick = e => {
+	e = e || window.event;
+	let arr = Object.keys(defaultProducts);
+	let newIngredient;
+	let productExists = false;
+	let li = e.target || e.srcElement; //assumes there are no other elements in the th
+
+	let selectedProduct = li.textContent
+	
+	for (let i = 0; i < Object.keys(defaultProducts).length; ++i) {
+		if (selectedProduct == defaultProducts[arr[i]].name) {
+			newIngredient = defaultProducts[arr[i]].ingredients;
+			console.log()
+		}
+	}
+	
+	let newProduct = {
+			name: selectedProduct,
+			ingredients: [newIngredient]
+		};
+	
+	for (let j = 0; j < numOfProducts; ++j) {
+		let arr = Object.keys(products);
+		if (Object.values(products[arr[j]]).indexOf(selectedProduct) > -1) {
+			productExists = true;
+			break;
+		} else {
+			productExists = false;
+		}
+	}
+	
+	if (productExists) {
+	} else {
+			document.getElementById("optionsContainer").setAttribute("disabled", true);
+		console.log(li);
+		addNewProduct(newProduct);		
+		setTimeout(() => {
+				document.getElementById("optionsContainer").setAttribute("disabled", false);
+		}, 500);
+
+		
+	}
+};
+
+
 // Client side: hide column
-document
-	.getElementById("result")
-	.getElementsByTagName("thead")[0].onclick = e => {
+document.getElementById("result").getElementsByTagName("thead")[0].onclick = e => {
 	e = e || window.event;
 	let th = e.target || e.srcElement; //assumes there are no other elements in the th
 
@@ -358,6 +422,8 @@ document.getElementById("addProduct").onclick = () => {
 			name: newProductName.value,
 			ingredients: [newIngredient.value]
 		};
+		
+		console.log(newProduct);
 
 		newProductName.value = "";
 		newIngredient.value = "";
@@ -373,7 +439,7 @@ let init = () => {
 findDuplicateIngredients();
 createTableHeader();
 createTableRow();	
+		populateDefaultProductList();
 }
-
 
 init();
