@@ -1,0 +1,126 @@
+html, body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: monospace;
+  background: #effcff;
+  font-size: 12px;
+}
+
+table {
+  background: white;
+  margin: 50px auto;
+  width: 100%;
+  min-width: 600px;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.02), 0px 20px 20px rgba(0, 0, 0, 0.08);
+}
+table thead tr, table tbody tr {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+table thead tr {
+  border-bottom: 1px solid #ccc;
+}
+table thead th {
+  text-align: center;
+  font-weight: bold;
+  padding: 12px 0;
+}
+table tbody tr:nth-of-type(even) {
+  background: rgba(0, 0, 255, 0.03);
+}
+table tbody tr:hover {
+  background: rgba(0, 0, 255, 0.06);
+}
+table th, table td {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+}
+table td {
+  padding: 10px 5px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+  background: white;
+  padding: 15px 0 20px;
+  visibility: hidden;
+}
+
+.wrapper {
+  padding-bottom: 300px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.form {
+  display: flex;
+  align-items: baseline;
+}
+
+.input-row {
+  margin-right: 20px;
+}
+.input-row label, .input-row input, .input-row textarea {
+  display: block;
+}
+.input-row label {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 4px;
+  color: gray;
+}
+.input-row input {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-width: 180px;
+}
+.input-row textarea {
+  padding: 5px;
+  min-width: 350px;
+  max-width: 350px;
+  min-height: 120px;
+  max-height: 120px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+.input-row sup {
+  color: rgba(128, 128, 128, 0.8);
+  font-style: italic;
+}
+
+button {
+  position: relative;
+  top: 24px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: #1fc99a;
+  color: white;
+  border-radius: 3px;
+  padding: 8px 30px;
+}
+button:hover {
+  background: rgba(31, 201, 154, 0.8);
+}
+button:active {
+  background: #1bae86;
+}
+button:focus {
+  outline: none;
+}
