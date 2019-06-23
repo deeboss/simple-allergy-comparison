@@ -215,11 +215,10 @@ let createTableRow = () => {
 
 	} else {
 		matchesEl[i].classList.add("match");		
-	}
-
-		if (i == numOfDuplicates - 1) {
+				if (i == numOfDuplicates - 1) {
 			matchesEl[i].style.borderBottom = "3px solid royalblue";
 		}
+	}
 	}
 	
 	setTimeout(function() {
